@@ -28,8 +28,7 @@ async function solve() {
         sudokuArray[row] = [];
         for(let col = 0; col < gridSize; col++){
             const cellId = `cell-${row}-${col}`;
-            const cellValue = document.getElementById(cellId).
-            ariaValueMax;
+            const cellValue = document.getElementById(cellId).value;
             sudokuArray[row][col] = cellValue !== "" ? parseInt(cellValue) : 0;
         }
     }
@@ -52,7 +51,7 @@ async function solve() {
                 const cell = document.getElementById(cellId);
 
                 if(!cell.classList.contains("user-input")) {
-                    cellValue = sudokuArray[row][col];
+                    cell.value = sudokuArray[row][col];
                     cell.classList.add("solved");
                     await sleep(15);
                 }
@@ -80,11 +79,12 @@ async function solve() {
                         }
                         
                     }
+                    return false;
                         
                 }
             }
         }
-        return false;
+        return true;
     }
 
     function isValidMove(board, row, col, num) {
@@ -96,13 +96,13 @@ async function solve() {
             }
         }
 
-        const startRow = Math.florr(row / 3)*3;
-        const startCol = Math.florr(col / 3)*3;
+        const startRow = Math.floor(row / 3)*3;
+        const startCol = Math.floor(col / 3)*3;
 
         for (let i=startRow; i<startRow + 3;i++) {
             for (let j = startCol; j< startCol + 3;j++) {
                 if(board[i][j] === num){
-                    return false
+                    return false;
                 }
                
             }
